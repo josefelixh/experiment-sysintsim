@@ -5,19 +5,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-//@ConfigurationProperties(prefix="service.downstream")
-public class DownstreamConnectionConfig {
+//@ConfigurationProperties(prefix="service.upstream")
+public class UpstreamConnectionConfig {
 
-    @Value("${service.downstream.url}")
+    @Value("${service.upstream.url}")
     private String url;
 
-    @Value("${service.downstream.pool-size}")
+    @Value("${service.upstream.pool-size}")
     private int poolSize;
 
-    @Value("${service.downstream.socket-timeout}")
+    @Value("${service.upstream.socket-timeout}")
     private int socketTimeout;
 
-    //@Value("${service.downstream.tcp-no-delay}")
+    //@Value("${service.upstream.tcp-no-delay}")
     private boolean tcpNoDelay; // Disable Nagle
 
     public String getUrl() {

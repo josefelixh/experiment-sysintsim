@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker rm -f downstream upstream grafana
+docker rm -f upstream downstream grafana
 

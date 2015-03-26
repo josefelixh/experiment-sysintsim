@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class UpstreamApplication {
+public class DownstreamApplication {
 
   public static void main(String[] args) throws Exception {
     new ConfigurationParser().newEmbeddedJmxTrans("classpath:jmxtrans.json").start();
-    SpringApplication.run(UpstreamApplication.class, args);
+    SpringApplication.run(DownstreamApplication.class, args);
   }
 }

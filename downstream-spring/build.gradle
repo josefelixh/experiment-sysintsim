@@ -11,7 +11,7 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'upstream-spring'
+    baseName = 'downstream-spring'
     version =  '0.1-SNAPSHOT'
 }
 

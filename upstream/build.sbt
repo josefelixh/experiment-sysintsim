@@ -1,4 +1,4 @@
-name         := "downstream"
+name         := "upstream"
 organization := "net.paoloambrosio.sysintsim"
 version      := "0.1"
 scalaVersion := "2.11.5"

@@ -16,33 +16,33 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 @RestController
-public class UpstreamController {
+public class DownstreamController {
 
     private final Executor executor;
-    private final String downstreamUrl;
+    private final String upstreamUrl;
 
     @Autowired
-    public UpstreamController(DownstreamConnectionConfig dcc) {
+    public DownstreamController(UpstreamConnectionConfig ucc) {
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-        cm.setMaxTotal(dcc.getPoolSize());
-        cm.setDefaultMaxPerRoute(dcc.getPoolSize());
+        cm.setMaxTotal(ucc.getPoolSize());
+        cm.setDefaultMaxPerRoute(ucc.getPoolSize());
         cm.setDefaultSocketConfig(SocketConfig.custom()
                 .setSoKeepAlive(true)
-                .setSoTimeout(dcc.getSocketTimeout())
-                .setTcpNoDelay(dcc.isTcpNoDelay())
+                .setSoTimeout(ucc.getSocketTimeout())
+                .setTcpNoDelay(ucc.isTcpNoDelay())
                 .build()
             );
         CloseableHttpClient client = HttpClients.custom().setConnectionManager(cm).build();
         executor = Executor.newInstance(client);
-        downstreamUrl = dcc.getUrl();
+        upstreamUrl = ucc.getUrl();
     }
 
     @RequestMapping("/")
     public ResponseEntity<String> index() {
         try {
-            String downstreamResponse = executor.execute(Request.Get(downstreamUrl)).returnContent().asString();
-            HttpStatus status = "success".equals(downstreamResponse) ? HttpStatus.OK : HttpStatus.SERVICE_UNAVAILABLE;
-            return new ResponseEntity<String>("success-" + downstreamResponse, status);
+            String upstreamResponse = executor.execute(Request.Get(upstreamUrl)).returnContent().asString();
+            HttpStatus status = "success".equals(upstreamResponse) ? HttpStatus.OK : HttpStatus.SERVICE_UNAVAILABLE;
+            return new ResponseEntity<String>("success-" + upstreamResponse, status);
         } catch (SocketTimeoutException e) {
             return new ResponseEntity<String>("success-timeout", HttpStatus.GATEWAY_TIMEOUT);
         } catch (IOException e) {

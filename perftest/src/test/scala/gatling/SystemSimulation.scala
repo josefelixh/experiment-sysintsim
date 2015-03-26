@@ -12,7 +12,7 @@ class SystemSimulation extends Simulation {
 
   val httpConf = http.baseURL(s"http://$host:$port")
 
-  val scn = scenario("UpstreamSimulation")
+  val scn = scenario("SystemSimulation")
     .forever {exec(
       http("OnlyRequest").get("/").check(status.is(200), bodyString.is("success-success"))
     )}
